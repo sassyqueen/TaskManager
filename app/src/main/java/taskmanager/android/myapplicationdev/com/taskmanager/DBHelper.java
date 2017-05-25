@@ -47,7 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-    public long insertSong(String taskName, String description){
+    public long insertTask(String taskName, String description){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASKNAME, taskName);
