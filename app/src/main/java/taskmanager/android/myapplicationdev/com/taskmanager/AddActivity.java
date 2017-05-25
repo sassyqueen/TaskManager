@@ -1,6 +1,10 @@
 package taskmanager.android.myapplicationdev.com.taskmanager;
 
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +15,7 @@ public class AddActivity extends AppCompatActivity {
 
     EditText etName, etDescription;
     Button addTask,cancel;
+
 
 
     @Override
@@ -30,7 +35,10 @@ public class AddActivity extends AppCompatActivity {
                 DBHelper db = new DBHelper(AddActivity.this);
                 db.insertTask(etName.getText().toString(), etDescription.getText().toString());
                 setResult(RESULT_OK, i);
+                i.putExtra("name", etName.getText().toString());
                 finish();
+
+
             }
         });
 
