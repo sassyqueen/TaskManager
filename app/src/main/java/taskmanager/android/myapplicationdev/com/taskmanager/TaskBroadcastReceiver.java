@@ -15,13 +15,13 @@ public class TaskBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
-        Intent i = new Intent(context, MainActivity.class);
+        Intent i = new Intent(context, AddActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(context, reqCode, i, PendingIntent.FLAG_CANCEL_CURRENT);
 
 
         //build notification
         Notification.Builder builder = new Notification.Builder(context);
-        builder.setContentTitle(intent.getStringExtra("name"));
+        builder.setContentTitle(intent.getStringExtra("name") + ": " + intent.getStringExtra("desc"));
         builder.setContentText("Task");
         builder.setSmallIcon(android.R.drawable.ic_dialog_info);
         builder.setContentIntent(pIntent);
