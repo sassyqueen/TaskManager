@@ -33,6 +33,19 @@
         android:ems="10"
         android:inputType="textPersonName" />
 
+    <TextView
+        android:id="@+id/textViewtime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remind in seconds" />
+
+    <EditText
+        android:id="@+id/etTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

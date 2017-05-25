@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 public class AddActivity extends AppCompatActivity {
 
-    EditText etName, etDescription;
+    EditText etName, etDescription, etTime;
     Button addTask,cancel;
 
 
@@ -27,6 +27,7 @@ public class AddActivity extends AppCompatActivity {
         etDescription = (EditText)findViewById(R.id.etDescription);
         addTask = (Button)findViewById(R.id.addTask);
         cancel = (Button)findViewById(R.id.cancel);
+        etTime = (EditText)findViewById(R.id.etTime);
 
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +36,25 @@ public class AddActivity extends AppCompatActivity {
                 DBHelper db = new DBHelper(AddActivity.this);
                 db.insertTask(etName.getText().toString(), etDescription.getText().toString());
                 setResult(RESULT_OK, i);
-                i.putExtra("name", etName.getText().toString());
+
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.SECOND, Integer.parseInt(etTime.getText().toString()));
+
+
+                //create new PendingIntent and add to AlarmManager
+                Intent intent = new Intent(AddActivity.this, TaskBroadcastReceiver.class);
+                intent.putExtra("name", etName.getText().toString());
+                intent.putExtra("desc", etDescription.getText().toString());
+                int reqCode = 12345;
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(AddActivity.this, reqCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+                //Get AlarmManager instance
+
+                AlarmManager am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+
+                // set alarm
+                am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+
                 finish();
 
 

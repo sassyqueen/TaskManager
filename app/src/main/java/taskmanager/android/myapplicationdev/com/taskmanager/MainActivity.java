@@ -84,34 +84,13 @@ public class MainActivity extends AppCompatActivity {
                     View view = super.getView(position, convertView, parent);
                     TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                     TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-                    text1.setText((position+1)+" "+taskAL.get(position).getName());
-                    text2.setText(taskAL.get(position).getDescription());
+                    text1.setText((position+1)+" "+taskAL.get(position).getDescription());
+                    text2.setText(taskAL.get(position).getName());
                     return view;
                 }
             };
             lv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-
-            String name = (String) data.getSerializableExtra("name");
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.SECOND, 5);
-
-
-            //create new PendingIntent and add to AlarmManager
-            Intent intent = new Intent(MainActivity.this, TaskBroadcastReceiver.class);
-            intent.putExtra("name", name);
-            int reqCode = 12345;
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, reqCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-            //Get AlarmManager instance
-
-            AlarmManager am = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
-
-            // set alarm
-            am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
-
-            finish();
-
-
             db.close();
 
 
